@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- 3D Outer Bevel Gradient -->
+    <linearGradient id="goldRim3D" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF5C0" />
+      <stop offset="25%" stop-color="#F59E0B" />
+      <stop offset="50%" stop-color="#78350F" />
+      <stop offset="75%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+
+    <!-- 3D Dark Obsidian Medallion Core -->
+    <radialGradient id="obsidianCore" cx="40%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#2D124D" />
+      <stop offset="45%" stop-color="#140628" />
+      <stop offset="80%" stop-color="#080214" />
+      <stop offset="100%" stop-color="#020005" />
+    </radialGradient>
+
+    <!-- 3D Electric Magenta-Cyan Pulse Gradient -->
+    <linearGradient id="pulseElectric" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0FF" />
+      <stop offset="40%" stop-color="#FF007F" />
+      <stop offset="100%" stop-color="#7928CA" />
+    </linearGradient>
+
+    <!-- 3D Gold Crown Shading -->
+    <linearGradient id="crown3D" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFF9D2" />
+      <stop offset="30%" stop-color="#FBBF24" />
+      <stop offset="70%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#92400E" />
+    </linearGradient>
+
+    <!-- Specular Gloss Highlight -->
+    <linearGradient id="glassGloss" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.35" />
+      <stop offset="35%" stop-color="#FFFFFF" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- 3D Metallic Letter P -->
+    <linearGradient id="letterPGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="25%" stop-color="#FDE68A" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="75%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#78350F" />
+    </linearGradient>
+
+    <!-- Deep 3D Drop Shadow Filter -->
+    <filter id="shadow3D" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000000" flood-opacity="0.85" />
+    </filter>
+
+    <!-- Neon Glow Filter -->
+    <filter id="neonGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Intense Pulse Glow -->
+    <filter id="intenseGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="14" result="glow" />
+      <feMerge>
+        <feMergeNode in="glow" />
+        <feMergeNode in="glow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Base 3D Squircle Shield Background with Shadow -->
+  <rect x="24" y="24" width="464" height="464" rx="124" fill="#05010A" filter="url(#shadow3D)" />
+  <rect x="28" y="28" width="456" height="456" rx="120" fill="url(#obsidianCore)" stroke="url(#goldRim3D)" stroke-width="8" />
+
+  <!-- 3D Inner Bevel Rim -->
+  <rect x="42" y="42" width="428" height="428" rx="108" fill="none" stroke="#2E1065" stroke-width="3" opacity="0.8" />
+  <circle cx="256" cy="256" r="195" fill="none" stroke="url(#goldRim3D)" stroke-width="2.5" stroke-dasharray="8 6" opacity="0.45" />
+
+  <!-- Outer Neon Pulse Soundwave Ring -->
+  <circle cx="256" cy="256" r="175" fill="none" stroke="url(#pulseElectric)" stroke-width="4" opacity="0.4" filter="url(#neonGlow)" />
+
+  <!-- Top 3D Imperial VIP Crown -->
+  <g filter="url(#shadow3D)">
+    <!-- Crown Base Shadow -->
+    <path d="M 160 165 L 188 202 L 256 168 L 324 202 L 352 165 L 340 226 L 172 226 Z" fill="#451A03" />
+    <!-- Crown 3D Body -->
+    <path d="M 160 160 L 188 198 L 256 162 L 324 198 L 352 160 L 338 220 L 174 220 Z" fill="url(#crown3D)" stroke="#FFEAA7" stroke-width="2" />
+    
+    <!-- Crown Jewels / Orbs -->
+    <circle cx="160" cy="155" r="9" fill="#00F0FF" stroke="#FFF" stroke-width="2" filter="url(#neonGlow)" />
+    <circle cx="256" cy="156" r="12" fill="#FF007F" stroke="#FFF" stroke-width="2.5" filter="url(#neonGlow)" />
+    <circle cx="352" cy="155" r="9" fill="#00F0FF" stroke="#FFF" stroke-width="2" filter="url(#neonGlow)" />
+    <circle cx="206" cy="190" r="5" fill="#FFEAA7" />
+    <circle cx="306" cy="190" r="5" fill="#FFEAA7" />
+
+    <!-- Crown Headband Base with Ruby Diamonds -->
+    <rect x="174" y="212" width="164" height="14" rx="7" fill="url(#goldRim3D)" stroke="#FFF" stroke-width="1" />
+    <circle cx="210" cy="219" r="3.5" fill="#FF0055" />
+    <circle cx="256" cy="219" r="4" fill="#00E5FF" />
+    <circle cx="302" cy="219" r="3.5" fill="#FF0055" />
+  </g>
+
+  <!-- 3D Heartbeat / Music Sound Pulse Wave with Glowing Trail -->
+  <path d="M 70 300 L 140 300 L 165 240 L 195 365 L 235 220 L 265 340 L 290 280 L 325 315 L 360 260 L 385 300 L 442 300" 
+        fill="none" 
+        stroke="url(#pulseElectric)" 
+        stroke-width="14" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        filter="url(#intenseGlow)" />
+
+  <path d="M 70 300 L 140 300 L 165 240 L 195 365 L 235 220 L 265 340 L 290 280 L 325 315 L 360 260 L 385 300 L 442 300" 
+        fill="none" 
+        stroke="#FFFFFF" 
+        stroke-width="5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        opacity="0.9" />
+
+  <!-- Center 3D Letter 'P' (PULSE Emblem) with Gold Bevel -->
+  <g filter="url(#shadow3D)">
+    <!-- 3D Extrusion Shadow for Letter P -->
+    <path d="M 215 210 L 268 210 C 298 210, 318 226, 318 252 C 318 278, 298 294, 268 294 L 238 294 L 238 375 L 215 375 Z" fill="#451A03" transform="translate(6, 6)" />
+    <!-- 3D Letter P Face -->
+    <path d="M 215 210 L 268 210 C 298 210, 318 226, 318 252 C 318 278, 298 294, 268 294 L 238 294 L 238 375 L 215 375 Z" fill="url(#letterPGrad)" stroke="#FFF" stroke-width="2.5" />
+    <!-- Letter P Inner Hole -->
+    <path d="M 238 232 L 264 232 C 282 232, 294 240, 294 252 C 294 264, 282 272, 264 272 L 238 272 Z" fill="#140628" stroke="url(#goldRim3D)" stroke-width="2" />
+  </g>
+
+  <!-- VIP 3D Bottom Ribbon Badge -->
+  <g filter="url(#shadow3D)">
+    <path d="M 190 395 L 322 395 L 338 425 L 305 425 L 256 420 L 207 425 L 174 425 Z" fill="#78350F" />
+    <path d="M 194 390 L 318 390 L 332 418 L 256 414 L 180 418 Z" fill="url(#goldRim3D)" stroke="#FFEAA7" stroke-width="1.5" />
+    <text x="256" y="410" font-family="'Outfit', 'Plus Jakarta Sans', Arial, sans-serif" font-size="20" font-weight="900" fill="#2E1065" text-anchor="middle" letter-spacing="4">VIP</text>
+  </g>
+
+  <!-- Glossy 3D Glass Surface Arc Reflection -->
+  <path d="M 36 120 C 120 40, 380 40, 476 120 C 380 80, 140 80, 36 120 Z" fill="url(#glassGloss)" opacity="0.8" />
+  <circle cx="100" cy="100" r="12" fill="#FFFFFF" opacity="0.3" filter="url(#neonGlow)" />
+  <circle cx="410" cy="380" r="8" fill="#00F0FF" opacity="0.6" filter="url(#neonGlow)" />
+</svg>

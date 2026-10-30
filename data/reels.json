@@ -1,0 +1,98 @@
+[
+  {
+    "id": "reel_1",
+    "author": {
+      "id": "user_zara",
+      "name": "Zara Khan",
+      "username": "@zarakhan_live",
+      "phone": "+971 50 123 4567",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=80",
+      "bio": "Sufi Singer & Live Streamer 🌸 Top 1 Pulse VIP Host",
+      "coins": 48900,
+      "diamonds": 18500,
+      "level": 48,
+      "vipTier": "Crown",
+      "isHost": true,
+      "country": "United Arab Emirates",
+      "flag": "🇦🇪"
+    },
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-young-woman-talking-on-video-call-with-her-phone-41584-large.mp4",
+    "thumbnail": "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop&q=80",
+    "title": "Singing my latest acoustic version 🎵 Who wants a duet in the Pulse VIP room tonight? ❤️",
+    "tags": ["#PulseVIP", "#Singing", "#Acoustic", "#Viral"],
+    "musicTitle": "Zara Khan - Raataan Lambiyan (Acoustic Unplugged)",
+    "likesCount": 14200,
+    "isLiked": false,
+    "commentsCount": 382,
+    "sharesCount": 1205,
+    "comments": [
+      {
+        "id": "c1",
+        "user": {
+          "id": "user_me",
+          "name": "Muhammad Sharif",
+          "username": "@muhammad_sharif",
+          "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&auto=format&fit=crop&q=80"
+        },
+        "text": "Mesmerizing voice Zara! Join our 9 PM room today 🔥",
+        "timestamp": "2h ago",
+        "likes": 24,
+        "isLiked": false
+      }
+    ]
+  },
+  {
+    "id": "reel_2",
+    "author": {
+      "id": "user_kabir",
+      "name": "DJ Kabir",
+      "username": "@djkabir_remix",
+      "phone": "+966 50 234 5678",
+      "avatar": "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=200&auto=format&fit=crop&q=80",
+      "bio": "Late night drops & Bollywood beats 🎧 Let the party roll!",
+      "coins": 22000,
+      "diamonds": 9200,
+      "level": 28,
+      "vipTier": "Gold",
+      "country": "Saudi Arabia",
+      "flag": "🇸🇦"
+    },
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-dj-playing-music-on-a-sound-mixer-41908-large.mp4",
+    "thumbnail": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
+    "title": "When the bass drops in our 20-seat party arena! 🎧 Full crowd went wild!",
+    "tags": ["#DJLife", "#Remix", "#PulseClub", "#PartyMode"],
+    "musicTitle": "DJ Kabir - Midnight Dubai Mashup 2026",
+    "likesCount": 28900,
+    "isLiked": true,
+    "commentsCount": 654,
+    "sharesCount": 3410,
+    "comments": []
+  },
+  {
+    "id": "reel_3",
+    "author": {
+      "id": "user_meera",
+      "name": "Meera Rajput",
+      "username": "@meeraclicks",
+      "phone": "+1 (555) 234-5678",
+      "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&auto=format&fit=crop&q=80",
+      "bio": "Fashion & Vlogs 💄 Daily lives at 9 PM",
+      "coins": 14500,
+      "diamonds": 5600,
+      "level": 24,
+      "vipTier": "Gold",
+      "country": "United States",
+      "flag": "🇺🇸"
+    },
+    "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-girl-smiling-while-taking-a-selfie-with-a-smartphone-41618-large.mp4",
+    "thumbnail": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&auto=format&fit=crop&q=80",
+    "title": "Testing out the new Beauty Glow camera filter on Pulse VIP! What do you guys think? ✨",
+    "tags": ["#GlowUp", "#BeautyFilter", "#Vlog", "#PulseCamera"],
+    "musicTitle": "Original Audio - Meera Rajput",
+    "likesCount": 9400,
+    "isLiked": false,
+    "commentsCount": 198,
+    "sharesCount": 420,
+    "comments": []
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "name": "Mehfil - Social Live & Party Rooms",
+  "description": "Premier social live streaming app with TikTok-style reels, 1-on-1 HD video & audio calls, and 10-20 seat interactive voice party rooms like Yalla Ludo.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
