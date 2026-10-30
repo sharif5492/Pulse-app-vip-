@@ -26,7 +26,8 @@ if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
 }
 
-// Serve uploaded videos & photos publicly
+// Serve public assets (videos, gifts, themes, uploads)
+app.use(express.static(path.resolve(__dirname, 'public')));
 app.use('/uploads', express.static(path.resolve(__dirname, 'public', 'uploads')));
 
 // In-Memory Backend Store (Synchronized with client state)

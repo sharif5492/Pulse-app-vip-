@@ -741,6 +741,9 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
     user: string;
     text: string;
     isGift?: boolean;
+    isMysteryBox?: boolean;
+    avatar?: string;
+    giftStacks?: { icon: string; count: string }[];
   }[]>([
     {
       id: '1',
@@ -1384,9 +1387,9 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
       timestamp: Date.now(),
     });
 
-    const bannerText = `🔥 ${currentUser.name} sent ${quantity}x ${gift.name} ${gift.icon} to ${targetDesc}!`;
+    const bannerText = `🔥 ${currentUser.name} sent ${quantity > 1 ? `${quantity}x ` : ''}${gift.name} ${gift.icon}!`;
     setRoomBanner(bannerText);
-    setTimeout(() => setRoomBanner(null), 5000);
+    setTimeout(() => setRoomBanner(null), 6000);
 
     // Gain room EXP from gifts and auto level up!
     const expGained = Math.max(25, Math.round(coinCost / 4));
@@ -1399,13 +1402,23 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
       handleUpgradeRoomLevel(30);
     }
 
+    // Chat feed effect matching video reference:
+    // "Gift in Mystery Gift Box - x1, x3, x6, x8" with stacked icons & user avatar
     setRoomComments((prev) => [
       ...prev,
       {
         id: `g_${Date.now()}`,
-        user: 'VIP 3D GIFT 🎁',
-        text: `${currentUser.name} gifted ${quantity}x ${gift.name} ${gift.icon} to ${targetDesc} (+${expGained} EXP 🌟)`,
+        user: currentUser.name,
+        avatar: currentUser.avatar,
+        text: 'Gift in Mystery Gift Box',
         isGift: true,
+        isMysteryBox: true,
+        giftStacks: [
+          { icon: gift.icon, count: `x${quantity}` },
+          { icon: '🦁', count: 'x6' },
+          { icon: '💍', count: 'x3' },
+          { icon: '👑', count: 'x1' },
+        ],
       },
     ]);
   };
@@ -2189,19 +2202,58 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
       {/* REAL-TIME MINI CHAT STREAM (Floating overlay)            */}
       {/* ======================================================== */}
       <div className="px-3.5 py-1 z-25 max-h-20 overflow-y-auto no-scrollbar space-y-1 pointer-events-auto">
-        {roomComments.slice(-2).map((rc) => (
-          <div
-            key={rc.id}
-            className={`text-[10px] px-2.5 py-0.5 rounded-xl backdrop-blur-md max-w-fit shadow ${
-              rc.isGift
-                ? `bg-gradient-to-r ${currentTheme.chatBubbleGift} font-bold`
-                : 'bg-black/60 border border-white/10 text-purple-200'
-            }`}
-          >
-            <span className="font-bold text-pink-300 mr-1">{rc.user}:</span>
-            <span>{rc.text}</span>
-          </div>
-        ))}
+        {roomComments.slice(-3).map((rc) => {
+          if (rc.isMysteryBox && rc.giftStacks) {
+            return (
+              <div
+                key={rc.id}
+                className="flex items-center gap-2 px-2.5 py-1 rounded-2xl bg-gradient-to-r from-[#2a0845]/95 via-[#18052a]/95 to-black/90 border border-amber-400/80 shadow-[0_0_15px_rgba(251,191,36,0.35)] backdrop-blur-md max-w-fit"
+              >
+                {rc.avatar ? (
+                  <img
+                    src={rc.avatar}
+                    alt={rc.user}
+                    className="w-5 h-5 rounded-full border border-amber-400 object-cover shrink-0"
+                  />
+                ) : (
+                  <div className="w-5 h-5 rounded-full bg-amber-500/30 border border-amber-400 flex items-center justify-center text-[10px]">
+                    🎁
+                  </div>
+                )}
+                <div className="flex flex-col min-w-0 pr-0.5">
+                  <span className="font-extrabold text-[10px] text-amber-300 truncate max-w-[90px]">
+                    {rc.user}
+                  </span>
+                  <span className="text-[8px] text-purple-200 font-medium truncate">
+                    Gift in Mystery Gift Box
+                  </span>
+                </div>
+                {/* Stacked multiplier badges from video */}
+                <div className="flex items-center gap-1 shrink-0 bg-black/60 px-1.5 py-0.5 rounded-lg border border-purple-800/60">
+                  {rc.giftStacks.map((stk, sIdx) => (
+                    <div key={sIdx} className="flex items-center gap-0.5">
+                      <span className="text-[11px]">{stk.icon}</span>
+                      <span className="text-[8px] font-black text-amber-400">{stk.count}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          }
+          return (
+            <div
+              key={rc.id}
+              className={`text-[10px] px-2.5 py-0.5 rounded-xl backdrop-blur-md max-w-fit shadow ${
+                rc.isGift
+                  ? `bg-gradient-to-r ${currentTheme.chatBubbleGift} font-bold`
+                  : 'bg-black/60 border border-white/10 text-purple-200'
+              }`}
+            >
+              <span className="font-bold text-pink-300 mr-1">{rc.user}:</span>
+              <span>{rc.text}</span>
+            </div>
+          );
+        })}
       </div>
 
       {/* ======================================================== */}
@@ -2363,19 +2415,60 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
 
           {/* Comments list */}
           <div className="flex-1 overflow-y-auto space-y-1.5 mb-3 max-h-44 pr-1">
-            {roomComments.map((rc) => (
-              <div
-                key={rc.id}
-                className={`text-xs p-2 rounded-xl backdrop-blur-md ${
-                  rc.isGift
-                    ? `bg-gradient-to-r ${currentTheme.chatBubbleGift} font-bold`
-                    : 'bg-purple-950/50 border border-purple-800/40 text-purple-200'
-                }`}
-              >
-                <span className="font-bold text-pink-300 mr-1.5">{rc.user}:</span>
-                <span>{rc.text}</span>
-              </div>
-            ))}
+            {roomComments.map((rc) => {
+              if (rc.isMysteryBox && rc.giftStacks) {
+                return (
+                  <div
+                    key={rc.id}
+                    className="flex items-center justify-between gap-2 p-2 rounded-xl bg-gradient-to-r from-[#290a45]/95 via-[#1a072d]/95 to-black/90 border border-amber-400/80 shadow-[0_0_15px_rgba(251,191,36,0.3)] backdrop-blur-md"
+                  >
+                    <div className="flex items-center gap-2 min-w-0">
+                      {rc.avatar ? (
+                        <img
+                          src={rc.avatar}
+                          alt={rc.user}
+                          className="w-7 h-7 rounded-full border-2 border-amber-400 object-cover shrink-0"
+                        />
+                      ) : (
+                        <div className="w-7 h-7 rounded-full bg-amber-500/30 border border-amber-400 flex items-center justify-center text-xs">
+                          🎁
+                        </div>
+                      )}
+                      <div className="flex flex-col min-w-0">
+                        <span className="font-extrabold text-xs text-amber-300 truncate">
+                          {rc.user}
+                        </span>
+                        <span className="text-[10px] text-purple-200 font-semibold truncate">
+                          Gift in Mystery Gift Box
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 shrink-0 bg-black/60 px-2 py-1 rounded-xl border border-purple-800/60">
+                      {rc.giftStacks.map((stk, sIdx) => (
+                        <div key={sIdx} className="flex items-center gap-0.5">
+                          <span className="text-sm">{stk.icon}</span>
+                          <span className="text-[10px] font-black text-amber-400">{stk.count}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <div
+                  key={rc.id}
+                  className={`text-xs p-2 rounded-xl backdrop-blur-md ${
+                    rc.isGift
+                      ? `bg-gradient-to-r ${currentTheme.chatBubbleGift} font-bold`
+                      : 'bg-purple-950/50 border border-purple-800/40 text-purple-200'
+                  }`}
+                >
+                  <span className="font-bold text-pink-300 mr-1.5">{rc.user}:</span>
+                  <span>{rc.text}</span>
+                </div>
+              );
+            })}
           </div>
 
           {/* Quick Reaction Emojis */}

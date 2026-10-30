@@ -456,6 +456,32 @@ export const VIP_LUXURY_GIFTS: GiftItem[] = [
     category: 'vip',
     description: '3D swirling cosmic galaxy with rotating planets and aurora borealis',
   },
+  {
+    id: 'vip_mystery_box',
+    name: 'Mystery Gift Box',
+    icon: '🎁',
+    coinValue: 5000,
+    coins: 5000,
+    '3dAnimationType': 'mystery_box',
+    animationType: 'mystery_box',
+    color: '#A855F7',
+    rarity: 'Mythic',
+    category: 'vip',
+    description: '3D Imperial Purple-Gold Mystery Box with glowing golden question mark and lucky reward multipliers',
+  },
+  {
+    id: 'vip_butterfly',
+    name: 'Magic Butterfly',
+    icon: '🦋',
+    coinValue: 3500,
+    coins: 3500,
+    '3dAnimationType': 'butterfly',
+    animationType: 'butterfly',
+    color: '#38BDF8',
+    rarity: 'Mythic',
+    category: 'vip',
+    description: 'Golden honey drop in sunlight transforming into glowing butterfly jungle and radiant amber crystal',
+  },
 ];
 
 // CLASSIC GIFTS
