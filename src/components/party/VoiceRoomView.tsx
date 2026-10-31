@@ -481,7 +481,7 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
     isAll?: boolean;
   } | null>(null);
   const [active3DGift, setActive3DGift] = useState<Active3DGiftPayload | null>(null);
-  const [cinematicPhase, setCinematicPhase] = useState<'box_3d' | 'box_flash' | 'reveal_grid' | 'cinematic_video' | null>(null);
+  const [cinematicPhase, setCinematicPhase] = useState<'box_3d' | 'box_flash' | 'reveal_grid' | 'cinematic' | null>(null);
   const [isDjBgmActive, setIsDjBgmActive] = useState(false);
   const [showDjBoard, setShowDjBoard] = useState(false);
   const [showLudoDice, setShowLudoDice] = useState(false);
@@ -1490,26 +1490,14 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
       <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-700 pointer-events-none z-0 overflow-hidden"
         style={{
-          backgroundImage: active3DGift && cinematicPhase === 'cinematic_video' ? 'none' : `url(${currentTheme.bgImage})`,
+          backgroundImage: active3DGift ? 'none' : `url(${currentTheme.bgImage})`,
+          backgroundColor: active3DGift ? '#000000' : 'transparent',
           backgroundSize: 'cover',
           backgroundPosition: 'center 20%',
         }}
       >
-        {active3DGift && cinematicPhase === 'cinematic_video' && (
-          <video
-            src={
-              (active3DGift.gift.name || '').toLowerCase().includes('lion') || (active3DGift.gift.name || '').toLowerCase().includes('tiger')
-                ? '/assets/gifts/cinematic_lion.mp4'
-                : (active3DGift.gift.name || '').toLowerCase().includes('butterfly') || (active3DGift.gift.name || '').toLowerCase().includes('rose')
-                ? '/assets/gifts/cinematic_butterfly.mp4'
-                : '/assets/gifts/cinematic_lion.mp4'
-            }
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover filter brightness-90 contrast-105"
-          />
+        {active3DGift && (
+          <div className="absolute inset-0 bg-radial-gradient from-amber-500/15 via-purple-950/30 to-black pointer-events-none" />
         )}
         {/* Soft atmospheric overlay for clear seat reading and contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/85" />
@@ -1550,7 +1538,7 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
       {/* ======================================================== */}
       {/* TOP HEADER                                               */}
       {/* ======================================================== */}
-      <div className="px-3 py-2 flex items-center justify-between border-b border-white/10 bg-black/60 backdrop-blur-md z-30">
+      <div className={`px-3 py-2 flex items-center justify-between border-b border-white/10 bg-black/60 backdrop-blur-md z-30 transition-opacity duration-300 ${active3DGift ? 'opacity-0 pointer-events-none' : ''}`}>
         {/* Left: Back button + Room DP + Title + 10 Seats | Live */}
         <div className="flex items-center gap-2 overflow-hidden">
           <button
@@ -1880,7 +1868,7 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
       {/* ======================================================== */}
       {/* 3D ARENA STAGE (DUO PODS VIP LOUNGE)                     */}
       {/* ======================================================== */}
-      <div className="flex-1 w-full relative flex items-center justify-center overflow-hidden z-10 px-1 py-1">
+      <div className={`flex-1 w-full relative flex items-center justify-center overflow-hidden z-10 px-1 py-1 transition-opacity duration-300 ${active3DGift ? 'opacity-0 pointer-events-none' : ''}`}>
         {/* Dynamic Oval Perspective Table Container */}
         <div className="relative w-full h-full max-w-[430px] max-h-[560px] mx-auto flex items-center justify-center">
           
@@ -2242,7 +2230,7 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
       {/* ======================================================== */}
       {/* REAL-TIME MINI CHAT STREAM (Floating overlay)            */}
       {/* ======================================================== */}
-      <div className="px-3.5 py-1 z-25 max-h-20 overflow-y-auto no-scrollbar space-y-1 pointer-events-auto">
+      <div className={`px-3.5 py-1 z-25 max-h-20 overflow-y-auto no-scrollbar space-y-1 pointer-events-auto transition-opacity duration-300 ${active3DGift ? 'opacity-0 pointer-events-none' : ''}`}>
         {roomComments.slice(-3).map((rc) => {
           if (rc.isMysteryBox && rc.giftStacks) {
             return (
@@ -2301,7 +2289,7 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
       {/* BOTTOM ACTION BAR                                        */}
       {/* Chat | Mute | Speaker | Gift | Invite | Leave             */}
       {/* ======================================================== */}
-      <div className="p-3 bg-black/75 border-t border-purple-900/50 backdrop-blur-xl flex items-center justify-between gap-1 z-30">
+      <div className={`p-3 bg-black/75 border-t border-purple-900/50 backdrop-blur-xl flex items-center justify-between gap-1 z-30 transition-opacity duration-300 ${active3DGift ? 'opacity-0 pointer-events-none' : ''}`}>
         {/* Chat Pill Button */}
         <button
           onClick={() => setShowChatDrawer(!showChatDrawer)}

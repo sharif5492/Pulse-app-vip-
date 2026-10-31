@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import { GiftItem, User, Seat, VIP_LUXURY_GIFTS, CLASSIC_GIFTS } from '../../types';
-import { soundService } from '../../services/soundService';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Sparkles, Send, Coins, Crown, ChevronDown, Check } from 'lucide-react';
 
@@ -57,7 +56,6 @@ export const GiftModal: React.FC<GiftModalProps> = ({
 
   const handleSelectGift = (gift: GiftItem) => {
     setSelectedGift(gift);
-    soundService.playCoinSound();
   };
 
   const handleSend = () => {
