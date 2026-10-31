@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { VoiceRoom, User, Seat, GiftItem, BlockedUser, RoomAllowances, RoomSong, getRoomMaxSeats, Active3DGiftPayload } from '../../types';
+import { VoiceRoom, User, Seat, GiftItem, BlockedUser, RoomAllowances, RoomSong, getRoomMaxSeats, Active3DGiftPayload, VIP_LUXURY_GIFTS } from '../../types';
 import { soundService } from '../../services/soundService';
 import { agoraService } from '../../services/agoraService';
 import { DEMO_USERS } from '../../services/storage';
 import { GiftModal } from '../common/GiftModal';
-import { GiftAnimation3D } from './GiftAnimation3D';
+import { CinematicGiftPlayer } from './CinematicGiftPlayer';
 import { LudoDiceGame } from './LudoDiceGame';
 import {
   Mic,
@@ -481,6 +481,7 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
     isAll?: boolean;
   } | null>(null);
   const [active3DGift, setActive3DGift] = useState<Active3DGiftPayload | null>(null);
+  const [cinematicPhase, setCinematicPhase] = useState<'box_3d' | 'box_flash' | 'reveal_grid' | 'cinematic_video' | null>(null);
   const [isDjBgmActive, setIsDjBgmActive] = useState(false);
   const [showDjBoard, setShowDjBoard] = useState(false);
   const [showLudoDice, setShowLudoDice] = useState(false);
@@ -489,6 +490,30 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+
+  // Expose global window.playCinematicGift method for testing & instant playback
+  useEffect(() => {
+    (window as unknown as { playCinematicGift?: (giftName: string) => void }).playCinematicGift = (giftName: string) => {
+      const query = (giftName || '').toLowerCase();
+      const matched =
+        VIP_LUXURY_GIFTS.find((g) => g.name.toLowerCase().includes(query)) ||
+        VIP_LUXURY_GIFTS.find((g) => g.id.toLowerCase().includes(query)) ||
+        VIP_LUXURY_GIFTS[0];
+
+      setActive3DGift({
+        id: `cinematic_${Date.now()}`,
+        gift: matched,
+        quantity: 1,
+        sender: currentUser,
+        targetName: 'All 12 Seats',
+        timestamp: Date.now(),
+      });
+    };
+
+    return () => {
+      delete (window as unknown as { playCinematicGift?: (giftName: string) => void }).playCinematicGift;
+    };
+  }, [currentUser]);
 
   // Pulse Connection Synergy & Boost State
   const [synergyScore, setSynergyScore] = useState(98);
@@ -1463,13 +1488,29 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
       {/* 3D PICTURE THEME WALLPAPER BACKGROUND                    */}
       {/* ======================================================== */}
       <div
-        className="absolute inset-0 bg-cover bg-center transition-all duration-700 pointer-events-none z-0"
+        className="absolute inset-0 bg-cover bg-center transition-all duration-700 pointer-events-none z-0 overflow-hidden"
         style={{
-          backgroundImage: `url(${currentTheme.bgImage})`,
+          backgroundImage: active3DGift && cinematicPhase === 'cinematic_video' ? 'none' : `url(${currentTheme.bgImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center 20%',
         }}
       >
+        {active3DGift && cinematicPhase === 'cinematic_video' && (
+          <video
+            src={
+              (active3DGift.gift.name || '').toLowerCase().includes('lion') || (active3DGift.gift.name || '').toLowerCase().includes('tiger')
+                ? '/assets/gifts/cinematic_lion.mp4'
+                : (active3DGift.gift.name || '').toLowerCase().includes('butterfly') || (active3DGift.gift.name || '').toLowerCase().includes('rose')
+                ? '/assets/gifts/cinematic_butterfly.mp4'
+                : '/assets/gifts/cinematic_lion.mp4'
+            }
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover filter brightness-90 contrast-105"
+          />
+        )}
         {/* Soft atmospheric overlay for clear seat reading and contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/85" />
       </div>
@@ -3714,10 +3755,14 @@ export const VoiceRoomView: React.FC<VoiceRoomViewProps> = ({
         </div>
       )}
 
-      {/* 3D Full-screen VIP Gift Animation Overlay System */}
-      <GiftAnimation3D
+      {/* Ultra Premium Cinematic Video Gift Player System */}
+      <CinematicGiftPlayer
         payload={active3DGift}
-        onComplete={() => setActive3DGift(null)}
+        onComplete={() => {
+          setActive3DGift(null);
+          setCinematicPhase(null);
+        }}
+        onPhaseChange={(phase) => setCinematicPhase(phase)}
       />
 
       {/* Gift Studio Modal */}

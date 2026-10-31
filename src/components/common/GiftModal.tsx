@@ -65,6 +65,12 @@ export const GiftModal: React.FC<GiftModalProps> = ({
     setIsSending(true);
 
     const seatIdParam = typeof selectedSeatId === 'number' ? selectedSeatId : undefined;
+
+    // Trigger global cinematic player hook if bound
+    if (typeof (window as unknown as { playCinematicGift?: (giftName: string) => void }).playCinematicGift === 'function') {
+      (window as unknown as { playCinematicGift: (giftName: string) => void }).playCinematicGift(selectedGift.name);
+    }
+
     onSendGift(selectedGift, quantity, seatIdParam, resolvedTargetName);
 
     setTimeout(() => {
